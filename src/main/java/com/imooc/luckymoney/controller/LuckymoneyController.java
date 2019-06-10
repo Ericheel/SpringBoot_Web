@@ -3,10 +3,13 @@ package com.imooc.luckymoney.controller;
 import com.imooc.luckymoney.entity.Luckymoney;
 import com.imooc.luckymoney.repository.LuckymoneyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -60,5 +63,15 @@ public class LuckymoneyController {
         }
 
         return null;
+    }
+
+    @PostMapping("/checkvalid")
+    public Object checkValid(@Valid Luckymoney luckymoney, BindingResult bindingResult) {
+        System.out.println(luckymoney);
+
+        if (bindingResult.hasErrors()) {
+            return Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
+        }
+        return luckymoney;
     }
 }
