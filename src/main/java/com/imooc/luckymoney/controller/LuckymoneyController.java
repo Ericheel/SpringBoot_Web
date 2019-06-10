@@ -1,6 +1,8 @@
 package com.imooc.luckymoney.controller;
 
 import com.imooc.luckymoney.entity.Luckymoney;
+import com.imooc.luckymoney.enums.ResponseEnum;
+import com.imooc.luckymoney.exception.LuckyException;
 import com.imooc.luckymoney.repository.LuckymoneyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -67,8 +69,9 @@ public class LuckymoneyController {
 
     @PostMapping("/checkvalid")
     public Object checkValid(@Valid Luckymoney luckymoney, BindingResult bindingResult) {
-        System.out.println(luckymoney);
-
+        if (true) {
+            throw new LuckyException(ResponseEnum.ERROR);
+        }
         if (bindingResult.hasErrors()) {
             return Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
         }
